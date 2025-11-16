@@ -1,2 +1,2 @@
 # Linear-Regression
- linear Regression predicting y from x
+ A Linear Regression Model that predict y from x

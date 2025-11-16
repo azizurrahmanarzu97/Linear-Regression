@@ -1,24 +1,28 @@
-#predicting y from x
-import numpy as np,pandas as pd
-import matplotlib.pyplot as plt, seaborn as sns
+import numpy as np
 from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 
-np.random.seed(0)
-x=np.random.rand(100,1)*10
-a=np.random.randn(100,1)*2
+n=int(input("Number of data points:"))
+x,y=[],[]
+for i in range(n):
+    x.append([float(input(f"x[{i+1}]:"))])
+    y.append(float(input(f"y[{i+1}]:")))
 
-y=a+2.5*x
+m=LinearRegression()
+m.fit(x,y)
 
-model=LinearRegression()
-model.fit(x,y)
+print("y={:.4f}x+{:.4f}".format(m.coef_[0],m.intercept_))
 
-y_pred=model.predict(x)
-print("Intercept",model.intercept_)
-print("slope",model.coef_)
+x_n=float(input("Enter x to predict y: "))
+print("Predicted y =",m.predict([[x_n]])[0])
 
-plt.scatter(x,y,color='red',label="data points")
-plt.plot(x,y_pred,color='blue',linewidth=2,label="Regression line")
-plt.xlabel("x")
-plt.ylabel("Y")
+x_a=np.array(x)
+x_l=np.linspace(min(x_a),max(x_a),100)
+y_l=m.predict(x_l.reshape(-1,1))
+
+plt.scatter(x_a,y,color='red',label="data points")
+plt.plot(x_l,y_l,color='blue',label="regression line")
+plt.xlabel("x");plt.ylabel("y")
 plt.legend()
 plt.show()
+
